@@ -1,8 +1,11 @@
 from textnode import *
+from htmlnode import HTMLNode
 
 def main():
-    dummy = TextNode("anchor text", "italic")
+    link = { "href": "https://www.google.com",
+    "target": "_blank", }
+    example = HTMLNode('a', "google", props=link)
     
-    print(dummy)
+    print(example)
 
 main()
