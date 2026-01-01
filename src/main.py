@@ -1,5 +1,5 @@
 from textnode import *
-from htmlnode import HTMLNode
+from htmlnode import *
 
 def main():
     link = { "href": "https://www.google.com",
@@ -7,5 +7,6 @@ def main():
     example = HTMLNode('a', "google", props=link)
     
     print(example)
+
 
 main()
