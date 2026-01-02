@@ -1,6 +1,21 @@
 from textnode import *
 from link_extractor import *
 
+
+def text_to_textnodes(text):
+    nodes = [TextNode(text, TextType.TEXT)]
+
+    nodes = split_nodes_link(nodes)
+    nodes = split_nodes_image(nodes)
+
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+
+
+    return nodes
+
+
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
     for node in old_nodes:
@@ -33,7 +48,7 @@ def _split_nodes_generic(old_nodes, extract_fn, build_md, text_type):
             continue
 
         links = extract_fn(node.text)
-        
+
         split_text = [node.text]
         for link in links:
             current_split = []
@@ -52,16 +67,16 @@ def _split_nodes_generic(old_nodes, extract_fn, build_md, text_type):
 
 def split_nodes_image(old_nodes):
     return _split_nodes_generic(
-        old_nodes,
-        extract_markdown_images,
-        lambda alt, url: f"![{alt}]({url})",
-        TextType.IMAGE,
-    )
+            old_nodes,
+            extract_markdown_images,
+            lambda alt, url: f"![{alt}]({url})",
+            TextType.IMAGE,
+            )
 
 def split_nodes_link(old_nodes):
     return _split_nodes_generic(
-        old_nodes,
-        extract_markdown_links,
-        lambda text, url: f"[{text}]({url})",
-        TextType.LINK,
-    )
+            old_nodes,
+            extract_markdown_links,
+            lambda text, url: f"[{text}]({url})",
+            TextType.LINK,
+            )
