@@ -1,6 +1,6 @@
 from textnode import *
 from htmlnode import *
-from splitter import *
+from inline_builder import *
 
 def main():
     pass

@@ -1,5 +1,5 @@
 import unittest
-from splitter import *
+from inline_builder import *
 from textnode import *
 
 class TestTextToTextNodes(unittest.TestCase):

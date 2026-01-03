@@ -5,8 +5,8 @@ from link_extractor import *
 def text_to_textnodes(text):
     nodes = [TextNode(text, TextType.TEXT)]
 
-    nodes = split_nodes_link(nodes)
     nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
 
     nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
     nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
@@ -51,10 +51,9 @@ def _split_nodes_generic(old_nodes, extract_fn, build_md, text_type):
 
         split_text = [node.text]
         for link in links:
-            current_split = []
-            for split in split_text:
-                current_split.extend(split.split(build_md(link[0], link[1])))
-            split_text = current_split
+            # Link must always appear in ultimate split as they are extracted in order
+            # Take all but last split + the last with only the first occurrence split
+            split_text = split_text[:-1] + split_text[-1].split(build_md(link[0], link[1]), 1)
 
         for i in range(len(split_text)):
             if i > 0:
