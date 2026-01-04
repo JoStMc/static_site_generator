@@ -49,5 +49,5 @@ def escape_html(text: str) -> str:
             .replace('<', "&lt;")
             .replace('>', "&gt;")
             .replace('"', "&quot")
-            .replace("'", "$#39;")
+            .replace("'", "&#39;")
     )

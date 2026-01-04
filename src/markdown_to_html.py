@@ -44,7 +44,7 @@ def text_to_children(text, block_type):
             children = text_to_html_nodes(text.split(' ', 1)[1])
         case BlockType.CODE:
             # Return just the text as its own HTMLNode
-            grand_children = [text_node_to_html_node(TextNode(text.strip('`'), TextType.TEXT))]
+            grand_children = [text_node_to_html_node(TextNode(text.strip('`\n'), TextType.TEXT))]
             children = [ParentNode("code", grand_children)]
         case BlockType.QUOTE:
             # Remove the inital '>' and any trailing whitespace -> join each 

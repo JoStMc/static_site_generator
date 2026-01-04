@@ -1,6 +1,6 @@
 import os
 import shutil
-from markdown_to_html import *
+from generate_page import generate_page
 
 def main():
     if not os.path.exists("static"):
@@ -11,11 +11,13 @@ def main():
 
     for item in os.listdir("public"):
         item_path = os.path.join("public", item)
-        if os.path.isdir(item):
+        if os.path.isdir(item_path):
             shutil.rmtree(item_path)
         else:
             os.remove(item_path)
     
+    generate_page("content/index.md", "template.html", "public/index.html")
+
     copy_static_to_public("static", "public")
 
 def copy_static_to_public(from_path, to_path):
