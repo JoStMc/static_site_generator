@@ -27,7 +27,6 @@ def block_to_block_type(markdown):
         return BlockType.PARAGRAPH
 
     lines = markdown.split("\n")
-    lines
 
     if beginning_char == '>':
         for line in lines:
