@@ -9,7 +9,7 @@ def extract_title(markdown):
     return header[0]
 
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(basepath, from_path, template_path, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}...")
     with open(from_path, 'r') as md_f:
         markdown = md_f.read()
@@ -21,6 +21,9 @@ def generate_page(from_path, template_path, dest_path):
 
     html = (template.replace("{{ Title }}", title).
             replace("{{ Content }}", content))
+    
+    html = re.sub(r'href="/', f'href="{basepath}', html)
+    html = re.sub(r'src="/', f'src="{basepath}', html)
     
     with open(dest_path, 'w') as dest_f:
         dest_f.write(html)
